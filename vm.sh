@@ -994,7 +994,9 @@ main_menu() {
                 ;;
             2)
                 if [ $vm_count -gt 0 ]; then
-                    read -p "$(print_status "INPUT" "Enter VM number to start: ")" vm_num
+                    # read -p "$(print_status "INPUT" "Enter VM number to start: ")" vm_num
+                    print_status "INPUT" "Enter choice: "
+                    read choice
                     if [[ "$vm_num" =~ ^[0-9]+$ ]] && [ "$vm_num" -ge 1 ] && [ "$vm_num" -le $vm_count ]; then
                         start_vm "${vms[$((vm_num-1))]}"
                     else
