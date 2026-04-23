@@ -11,7 +11,7 @@ VM_DIR="${VM_DIR:-$HOME/.zynexforge/vms}"
 LOG_DIR="${LOG_DIR:-$HOME/.zynexforge/logs}"
 CACHE_DIR="${CACHE_DIR:-$HOME/.zynexforge/cache}"
 CONFIG_DIR="${CONFIG_DIR:-$HOME/.zynexforge/config}"
-SCRIPT_URL="https://raw.githubusercontent.com/yourusername/zynexforge-vm-manager/main/vm.sh"
+SCRIPT_URL="https://raw.githubusercontent.com/OnlyNoco/zynexforge-vm-manager/main/vm.sh"
 
 # Function to display header
 display_header() {
