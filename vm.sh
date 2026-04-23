@@ -995,9 +995,11 @@ main_menu() {
             2)
                 if [ $vm_count -gt 0 ]; then
                     # read -p "$(print_status "INPUT" "Enter VM number to start: ")" vm_num
-                    print_status "INPUT" "Enter choice: "
-                    read choice
-                    if [[ "$vm_num" =~ ^[0-9]+$ ]] && [ "$vm_num" -ge 1 ] && [ "$vm_num" -le $vm_count ]; then
+                    # if [[ "$vm_num" =~ ^[0-9]+$ ]] && [ "$vm_num" -ge 1 ] && [ "$vm_num" -le $vm_count ]; then
+                    read -r vm_num
+                    vm_num="${vm_num:-0}"   # prevents unbound variable crash
+
+                    if [[ "$vm_num" =~ ^[0-9]+$ ]] && (( vm_num >= 1 && vm_num <= vm_count )); then
                         start_vm "${vms[$((vm_num-1))]}"
                     else
                         print_status "ERROR" "Invalid selection"
