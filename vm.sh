@@ -992,15 +992,31 @@ main_menu() {
             1)
                 create_new_vm
                 ;;
+            # 2)
+            #     if [ $vm_count -gt 0 ]; then
+            #         # read -p "$(print_status "INPUT" "Enter VM number to start: ")" vm_num
+            #         # if [[ "$vm_num" =~ ^[0-9]+$ ]] && [ "$vm_num" -ge 1 ] && [ "$vm_num" -le $vm_count ]; then
+            #         read -r vm_num
+            #         vm_num="${vm_num:-0}"   # prevents unbound variable crash
+
+            #         if [[ "$vm_num" =~ ^[0-9]+$ ]] && (( vm_num >= 1 && vm_num <= vm_count )); then
+            #             start_vm "${vms[$((vm_num-1))]}"
+            #         else
+            #             print_status "ERROR" "Invalid selection"
+            #         fi
+            #     else
+            #         print_status "ERROR" "No VMs available"
+            #     fi
+            #     ;;
+
             2)
                 if [ $vm_count -gt 0 ]; then
-                    # read -p "$(print_status "INPUT" "Enter VM number to start: ")" vm_num
-                    # if [[ "$vm_num" =~ ^[0-9]+$ ]] && [ "$vm_num" -ge 1 ] && [ "$vm_num" -le $vm_count ]; then
-                    read -r vm_num
-                    vm_num="${vm_num:-0}"   # prevents unbound variable crash
-
+                    read -p "$(print_status "INPUT" "Enter VM number to start: ")" vm_num  # safely asks user input
+            
+                    vm_num="${vm_num:-}"  # ensure variable ALWAYS exists (fixes -u crash)
+            
                     if [[ "$vm_num" =~ ^[0-9]+$ ]] && (( vm_num >= 1 && vm_num <= vm_count )); then
-                        start_vm "${vms[$((vm_num-1))]}"
+                        start_vm "${vms[$((vm_num-1))]}"  # convert number → VM name index
                     else
                         print_status "ERROR" "Invalid selection"
                     fi
@@ -1008,6 +1024,8 @@ main_menu() {
                     print_status "ERROR" "No VMs available"
                 fi
                 ;;
+
+            
             3)
                 if [ $vm_count -gt 0 ]; then
                     read -p "$(print_status "INPUT" "Enter VM number to stop: ")" vm_num
