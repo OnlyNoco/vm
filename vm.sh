@@ -640,14 +640,16 @@ start_vm() {
         fi
         
         # Build and execute QEMU command
-        local qemu_cmd=$(build_qemu_command "$vm_name")
+        # local qemu_cmd=$(build_qemu_command "$vm_name")
+        read -r -a qemu_cmd <<< "$(build_qemu_command "$vm_name")"
         local log_file="$LOG_DIR/$vm_name-$(date '+%Y%m%d-%H%M%S').log"
         
         print_status "INFO" "Starting VM (logs: $log_file)..."
         
         # Start QEMU in background
         eval "$qemu_cmd" > "$log_file" 2>&1 &
-        local qemu_pid=$!
+        # local qemu_pid=$!
+        "${qemu_cmd[@]}"
         
         # Wait for VM to start
         sleep 5
